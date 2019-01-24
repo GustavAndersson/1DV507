@@ -1,0 +1,52 @@
+package ga222gb_assign3.sorting_arrays;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.Comparator;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SortTest {
+
+    private static int test_count = 0;
+
+    @BeforeEach
+    public void setup(){
+        test_count++;
+        System.out.println("Test: " + test_count);
+    }
+
+    @Test
+    public void testInsertionSortInt(){
+        SortingAlgorithms s = new SortingAlgorithms();
+        int[] arr = {32, 2, 4, 64, 1, 98, 5};
+        int[] sortedArr = s.insertionSort(arr);
+
+        assertEquals(arr.length, sortedArr.length);     //Check if both arrays are the same size
+
+        for(int i = 0; i < sortedArr.length - 1; i++){
+            assertTrue(sortedArr[i] <= sortedArr[i + 1]);   //Check if ascending order
+        }
+    }
+
+    @Test
+    public void testInsertionSortString(){
+        SortingAlgorithms s = new SortingAlgorithms();
+        Comparator<String> c = new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        };
+
+        String[] arr = {"this", "is", "a", "sort", "test"};
+        String[] sortedArr = s.insertionSort(arr, c);
+
+        assertEquals(arr.length, sortedArr.length); //Check if both arrays are the same size
+
+        for(int i = 0; i < sortedArr.length - 1; i++){
+            assertTrue(c.compare(sortedArr[i], sortedArr[i + 1]) < 0); //Check if ascending order
+        }
+    }
+}
